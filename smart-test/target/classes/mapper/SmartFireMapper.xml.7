@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smart.mapper.SmartFireMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smart.bean.SmartFire">
+    <id column="fire_id" jdbcType="INTEGER" property="fireId" />
+    <result column="fire_time" jdbcType="TIMESTAMP" property="fireTime" />
+    <result column="fire_status" jdbcType="VARCHAR" property="fireStatus" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smart_fire
+    where fire_id = #{fireId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smart.bean.SmartFire">
+    insert into smart_fire (fire_id, fire_time, fire_status
+      )
+    values (#{fireId,jdbcType=INTEGER}, #{fireTime,jdbcType=TIMESTAMP}, #{fireStatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smart.bean.SmartFire">
+    update smart_fire
+    set fire_time = #{fireTime,jdbcType=TIMESTAMP},
+      fire_status = #{fireStatus,jdbcType=VARCHAR}
+    where fire_id = #{fireId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select fire_id, fire_time, fire_status
+    from smart_fire
+    where fire_id = #{fireId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select fire_id, fire_time, fire_status
+    from smart_fire
+  </select>
+</mapper>

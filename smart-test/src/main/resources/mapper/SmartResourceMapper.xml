@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smart.mapper.SmartResourceMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smart.bean.SmartResource">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smart_resource
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smart.bean.SmartResource">
+    insert into smart_resource (id, name, path, 
+      parent_id)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smart.bean.SmartResource">
+    update smart_resource
+    set name = #{name,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, name, path, parent_id
+    from smart_resource
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, path, parent_id
+    from smart_resource
+  </select>
+  <resultMap type="com.briup.smart.bean.extend.SmartResourceExtend" id="extendMap" extends="BaseResultMap">
+      <collection property="subResource" ofType="com.briup.smart.bean.SmartResource">
+        <id column="sid" property="id"/>
+        <result column="sname" property="name"/>
+        <result column="spath" property="path"/>
+      </collection>
+  </resultMap>
+  <select id="selectByRoleId" resultMap="extendMap"> 
+     select p.id, p.name, sub.id sid, sub.name sname, sub.path spath
+     from smart_resource p join smart_resource sub 
+     on p.id = sub.parent_id
+     where sub.id in (
+	 select resource_id
+	 from smart_role_resource
+	 where role_id = #{param}
+)
+  </select>
+</mapper>

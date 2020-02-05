@@ -1,0 +1,45 @@
+package com.briup.smart.bean;
+
+import java.util.Date;
+
+public class SmartPm {
+    private Integer pId;
+
+    private Date pTime;
+
+    private Integer pValue;
+
+    private String pLevel;
+
+    public Integer getpId() {
+        return pId;
+    }
+
+    public void setpId(Integer pId) {
+        this.pId = pId;
+    }
+
+    public Date getpTime() {
+        return pTime;
+    }
+
+    public void setpTime(Date pTime) {
+        this.pTime = pTime;
+    }
+
+    public Integer getpValue() {
+        return pValue;
+    }
+
+    public void setpValue(Integer pValue) {
+        this.pValue = pValue;
+    }
+
+    public String getpLevel() {
+        return pLevel;
+    }
+
+    public void setpLevel(String pLevel) {
+        this.pLevel = pLevel == null ? null : pLevel.trim();
+    }
+}

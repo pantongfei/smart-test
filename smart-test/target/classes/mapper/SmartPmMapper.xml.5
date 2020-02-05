@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smart.mapper.SmartPmMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smart.bean.SmartPm">
+    <id column="p_id" jdbcType="INTEGER" property="pId" />
+    <result column="p_time" jdbcType="TIMESTAMP" property="pTime" />
+    <result column="p_value" jdbcType="INTEGER" property="pValue" />
+    <result column="p_level" jdbcType="VARCHAR" property="pLevel" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smart_pm
+    where p_id = #{pId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smart.bean.SmartPm">
+    insert into smart_pm (p_id, p_time, p_value, 
+      p_level)
+    values (#{pId,jdbcType=INTEGER}, #{pTime,jdbcType=TIMESTAMP}, #{pValue,jdbcType=INTEGER}, 
+      #{pLevel,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smart.bean.SmartPm">
+    update smart_pm
+    set p_time = #{pTime,jdbcType=TIMESTAMP},
+      p_value = #{pValue,jdbcType=INTEGER},
+      p_level = #{pLevel,jdbcType=VARCHAR}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select p_id, p_time, p_value, p_level
+    from smart_pm
+    where p_id = #{pId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select p_id, p_time, p_value, p_level
+    from smart_pm
+  </select>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smart.mapper.SmartTemperatorMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smart.bean.SmartTemperator">
+    <result column="t_id" jdbcType="INTEGER" property="tId" />
+    <result column="t_time" jdbcType="TIMESTAMP" property="tTime" />
+    <result column="t_value" jdbcType="INTEGER" property="tValue" />
+    <result column="t_level" jdbcType="VARCHAR" property="tLevel" />
+  </resultMap>
+   <resultMap id="HistoryResultMap" type="com.briup.smart.bean.SmartTemHistory">
+    <result column="date(t_time)" jdbcType="TIMESTAMP" property="time" />
+    <result column="max(t_value)" jdbcType="INTEGER" property="max_value" />
+    <result column="min(t_value)" jdbcType="INTEGER" property="min_value"/>
+  </resultMap>
+  <insert id="insert" parameterType="com.briup.smart.bean.SmartTemperator">
+    insert into smart_temperator (t_id, t_time, t_value, 
+      t_level)
+    values (#{tId,jdbcType=INTEGER}, #{tTime,jdbcType=TIMESTAMP}, #{tValue,jdbcType=VARCHAR}, 
+      #{tLevel,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select t_id, t_time, t_value, t_level
+    from smart_temperator
+  </select>
+  <select id="getRealtimeMessage" resultMap="BaseResultMap">
+    select * from smart_temperator order by t_id desc limit 4 ;
+  </select>
+  <select id="getHistoryMessage" resultMap="HistoryResultMap">
+    select DATE(t_time),min(t_value),MAX(t_value) from(select * from smart_temperator where t_time>=date_add(now(),interval -5 day)) as s 
+    GROUP BY DAY(t_time);
+    
+  </select>
+    <!-- <select id="getHistoryMinMessage" resultMap="HistoryResultMap">
+      select t_time,min(t_value) from (select * from smart_temperator where t_time>=date_add(now(),interval -5 day)) as s GROUP BY DAY(t_time);
+   </select> -->
+   <select id="selectlasttemp" resultMap="BaseResultMap">
+  	select * from smart_temperator
+  	ORDER BY id DESC
+  	limit 1;
+  </select>
+  <select id="selectlast2temp" resultMap="BaseResultMap">
+  	select * from smart_temperator
+  	ORDER BY id DESC
+  	limit 1,1;
+  </select>
+</mapper>

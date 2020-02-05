@@ -1,0 +1,16 @@
+package com.briup.smart.mapper;
+
+import com.briup.smart.bean.SmartUsermessages;
+import java.util.List;
+
+public interface SmartUsermessagesMapper {
+    int deleteByPrimaryKey(Long id);
+
+    int insert(SmartUsermessages record);
+
+    SmartUsermessages selectByPrimaryKey(Long id);
+
+    List<SmartUsermessages> selectAll();
+
+    int updateByPrimaryKey(SmartUsermessages record);
+}

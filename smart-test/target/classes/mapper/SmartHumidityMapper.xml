@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smart.mapper.SmartHumidityMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smart.bean.SmartHumidity">
+    <id column="h_id" jdbcType="INTEGER" property="hId" />
+    <result column="h_time" jdbcType="TIMESTAMP" property="hTime" />
+    <result column="h_value" jdbcType="INTEGER" property="hValue" />
+    <result column="h_level" jdbcType="VARCHAR" property="hLevel" />
+  </resultMap>
+  <resultMap id="HistoryResultMap" type="com.briup.smart.bean.SmartHumHistory">
+    <result column="date(h_time)" jdbcType="TIMESTAMP" property="time" />
+    <result column="max(h_value)" jdbcType="INTEGER" property="max_value" />
+    <result column="min(h_value)" jdbcType="INTEGER" property="min_value"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smart_humidity
+    where h_id = #{hId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smart.bean.SmartHumidity">
+    insert into smart_humidity (h_id, h_time, h_value, 
+      h_level)
+    values (#{hId,jdbcType=INTEGER}, #{hTime,jdbcType=TIMESTAMP}, #{hValue,jdbcType=INTEGER}, 
+      #{hLevel,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smart.bean.SmartHumidity">
+    update smart_humidity
+    set h_time = #{hTime,jdbcType=TIMESTAMP},
+      h_value = #{hValue,jdbcType=INTEGER},
+      h_level = #{hLevel,jdbcType=VARCHAR}
+    where h_id = #{hId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select h_id, h_time, h_value, h_level
+    from smart_humidity
+    where h_id = #{hId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select h_id, h_time, h_value, h_level
+    from smart_humidity
+  </select>
+  <select id="getRealtimeMessage" resultMap="BaseResultMap">
+    select * from smart_humidity order by h_id desc limit 4 ;
+  </select>
+   <select id="getHistoryMessage" resultMap="HistoryResultMap" >
+     <!--  select * from smart_humidity where h_time>=date_add(now(),interval -3 day); -->
+     select DATE(h_time),min(h_value),MAX(h_value) from(select * from smart_humidity where h_time>=date_add(now(),interval -5 day)) as s 
+     GROUP BY DAY(h_time);
+  </select>
+   <select id="getHistoryMinMessage" resultMap="HistoryResultMap">
+      select h_time,min(h_value) from(select * from smart_humidity where h_time>=date_add(now(),interval -5 day)) as s GROUP BY DAY(h_time);
+  </select>
+   <select id="selectlasthum" resultMap="BaseResultMap">
+  	select * from smart_humidity
+  	ORDER BY id DESC
+  	limit 1;
+  </select>
+  <select id="selectlast2hum" resultMap="BaseResultMap">
+  	select * from smart_humidity
+  	ORDER BY id DESC
+  	limit 1,1;
+  </select>
+</mapper>

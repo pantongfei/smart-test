@@ -1,0 +1,16 @@
+package com.briup.smart.mapper;
+
+import com.briup.smart.bean.SmartTemperator;
+import java.util.List;
+
+public interface SmartTemperatorMapper {
+    int deleteByPrimaryKey(Integer tId);
+
+    int insert(SmartTemperator record);
+
+    SmartTemperator selectByPrimaryKey(Integer tId);
+
+    List<SmartTemperator> selectAll();
+
+    int updateByPrimaryKey(SmartTemperator record);
+}

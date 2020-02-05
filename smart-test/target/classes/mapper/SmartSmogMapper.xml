@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smart.mapper.SmartSmogMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smart.bean.SmartSmog">
+    <id column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="s_time" jdbcType="TIMESTAMP" property="sTime" />
+    <result column="s_status" jdbcType="VARCHAR" property="sStatus" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smart_smog
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smart.bean.SmartSmog">
+    insert into smart_smog (s_id, s_time, s_status
+      )
+    values (#{sId,jdbcType=INTEGER}, #{sTime,jdbcType=TIMESTAMP}, #{sStatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smart.bean.SmartSmog">
+    update smart_smog
+    set s_time = #{sTime,jdbcType=TIMESTAMP},
+      s_status = #{sStatus,jdbcType=VARCHAR}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select s_id, s_time, s_status
+    from smart_smog
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select s_id, s_time, s_status
+    from smart_smog
+  </select>
+  <select id="getRealtimeMessage" resultMap="BaseResultMap">
+      select * from smart_smog order by s_id desc limit 4 ;
+  </select>
+  <select id="getHistoryMessage" resultMap="BaseResultMap">
+    select * from smart_smog where s_time>= DATE_ADD(NOW(),INTERVAL -10 hour);
+  </select>
+   <select id="selectlastsmog" resultMap="BaseResultMap">
+  	select * from smart_smog
+  	ORDER BY id DESC
+  	limit 1;
+  </select>
+  <select id="selectlast2smog" resultMap="BaseResultMap">
+  	select * from smart_smog
+  	ORDER BY id DESC
+  	limit 1,1;
+  </select>
+</mapper>

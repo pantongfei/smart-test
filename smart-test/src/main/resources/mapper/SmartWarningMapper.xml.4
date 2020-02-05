@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smart.mapper.SmartWarningMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smart.bean.SmartWarning">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="device" jdbcType="VARCHAR" property="device" />
+    <result column="Warning_type" jdbcType="VARCHAR" property="warningType" />
+    <result column="Warning_level" jdbcType="VARCHAR" property="warningLevel" />
+    <result column="Warning_content" jdbcType="VARCHAR" property="warningContent" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="w_name" jdbcType="VARCHAR" property="wName" />
+    <result column="w_show" jdbcType="VARCHAR" property="wShow" />
+    <result column="w_time" jdbcType="TIMESTAMP" property="wTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smart_warning
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smart.bean.SmartWarning">
+    insert into smart_warning (id, time, device, 
+      Warning_type, Warning_level, Warning_content, 
+      state, w_name, w_show, 
+      w_time)
+    values (#{id,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{device,jdbcType=VARCHAR}, 
+      #{warningType,jdbcType=VARCHAR}, #{warningLevel,jdbcType=VARCHAR}, #{warningContent,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{wName,jdbcType=VARCHAR}, #{wShow,jdbcType=VARCHAR}, 
+      #{wTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smart.bean.SmartWarning">
+    update smart_warning
+    set time = #{time,jdbcType=TIMESTAMP},
+      device = #{device,jdbcType=VARCHAR},
+      Warning_type = #{warningType,jdbcType=VARCHAR},
+      Warning_level = #{warningLevel,jdbcType=VARCHAR},
+      Warning_content = #{warningContent,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      w_name = #{wName,jdbcType=VARCHAR},
+      w_show = #{wShow,jdbcType=VARCHAR},
+      w_time = #{wTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, time, device, Warning_type, Warning_level, Warning_content, state, w_name, 
+    w_show, w_time
+    from smart_warning
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, time, device, Warning_type, Warning_level, Warning_content, state, w_name, 
+    w_show, w_time
+    from smart_warning
+  </select>
+</mapper>

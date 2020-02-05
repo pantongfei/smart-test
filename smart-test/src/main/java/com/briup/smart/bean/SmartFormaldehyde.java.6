@@ -1,0 +1,45 @@
+package com.briup.smart.bean;
+
+import java.util.Date;
+
+public class SmartFormaldehyde {
+    private Integer fId;
+
+    private Date fTime;
+
+    private Integer fValue;
+
+    private String fLevel;
+
+    public Integer getfId() {
+        return fId;
+    }
+
+    public void setfId(Integer fId) {
+        this.fId = fId;
+    }
+
+    public Date getfTime() {
+        return fTime;
+    }
+
+    public void setfTime(Date fTime) {
+        this.fTime = fTime;
+    }
+
+    public Integer getfValue() {
+        return fValue;
+    }
+
+    public void setfValue(Integer fValue) {
+        this.fValue = fValue;
+    }
+
+    public String getfLevel() {
+        return fLevel;
+    }
+
+    public void setfLevel(String fLevel) {
+        this.fLevel = fLevel == null ? null : fLevel.trim();
+    }
+}

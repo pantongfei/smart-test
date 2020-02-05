@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smart.mapper.SmartUsermessagesMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smart.bean.SmartUsermessages">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="avatarurl" jdbcType="VARCHAR" property="avatarurl" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="mibo_phone" jdbcType="VARCHAR" property="miboPhone" />
+    <result column="standby_email" jdbcType="VARCHAR" property="standbyEmail" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from smart_usermessages
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smart.bean.SmartUsermessages">
+    insert into smart_usermessages (id, name, email, 
+      phone, avatarurl, password, 
+      mibo_phone, standby_email, role_name
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{avatarurl,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{miboPhone,jdbcType=VARCHAR}, #{standbyEmail,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smart.bean.SmartUsermessages">
+    update smart_usermessages
+    set name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      avatarurl = #{avatarurl,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      mibo_phone = #{miboPhone,jdbcType=VARCHAR},
+      standby_email = #{standbyEmail,jdbcType=VARCHAR},
+      role_name = #{roleName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, name, email, phone, avatarurl, password, mibo_phone, standby_email, role_name
+    from smart_usermessages
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, email, phone, avatarurl, password, mibo_phone, standby_email, role_name
+    from smart_usermessages
+  </select>
+</mapper>

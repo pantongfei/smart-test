@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smart.mapper.WarningMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smart.bean.Warning">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="device" jdbcType="VARCHAR" property="device" />
+    <result column="Warning_type" jdbcType="VARCHAR" property="warningType" />
+    <result column="Warning_level" jdbcType="VARCHAR" property="warningLevel" />
+    <result column="Warning_content" jdbcType="VARCHAR" property="warningContent" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="w_name" jdbcType="VARCHAR" property="wName" />
+    <result column="w_show" jdbcType="VARCHAR" property="wShow" />
+    <result column="w_time" jdbcType="TIMESTAMP" property="wTime" />
+    <result column="d_time" jdbcType="DATE" property="dTime" />
+    
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smart_warning
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smart.bean.Warning">
+    insert into smart_warning (w_show, w_time)
+    values ("已确认报警消息", now())
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smart.bean.Warning">
+    update smart_warning
+    set 
+      state= "已确认",
+      w_show="已确认报警消息",
+      w_time= now(),
+      w_name= (select name from smart_usermessages where id=1)
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, time, device, Warning_type, Warning_level, Warning_content, state, w_name, 
+    w_show, w_time
+    from smart_warning
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, time, device, Warning_type, Warning_level, Warning_content, state, w_name, 
+    w_show, w_time
+    from smart_warning
+  </select>
+  <select id="selectByWarningContent" parameterType="com.briup.smart.bean.Warning" resultMap="BaseResultMap">
+    select *
+    from smart_warning
+	<where>
+	<if test="Warning_content !=null">and Warning_content like CONCAT ('%',#{Warning_content,jdbcType=VARCHAR},'%')</if>
+	<if test="Warning_type !=null">and Warning_type like CONCAT ('%',#{Warning_type,jdbcType=VARCHAR},'%')</if>
+	</where>
+	<!-- Warning_content like CONCAT ('%',#{warningContent,jdbcType=VARCHAR},'%') -->
+   <!--  where Warning_content = #{warningContent,jdbcType=VARCHAR} -->
+  </select>
+  <select id="selectCount" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+   select count(*)
+    from smart_warning
+  </select>
+</mapper>

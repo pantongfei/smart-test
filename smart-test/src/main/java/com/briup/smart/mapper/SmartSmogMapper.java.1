@@ -1,0 +1,16 @@
+package com.briup.smart.mapper;
+
+import com.briup.smart.bean.SmartSmog;
+import java.util.List;
+
+public interface SmartSmogMapper {
+    int deleteByPrimaryKey(Integer sId);
+
+    int insert(SmartSmog record);
+
+    SmartSmog selectByPrimaryKey(Integer sId);
+
+    List<SmartSmog> selectAll();
+
+    int updateByPrimaryKey(SmartSmog record);
+}

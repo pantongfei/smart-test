@@ -1,0 +1,45 @@
+package com.briup.smart.bean;
+
+import java.util.Date;
+
+public class SmartTemperator {
+    private Integer tId;
+
+    private Date tTime;
+
+    private Integer tValue;
+
+    private String tLevel;
+
+    public Integer gettId() {
+        return tId;
+    }
+
+    public void settId(Integer tId) {
+        this.tId = tId;
+    }
+
+    public Date gettTime() {
+        return tTime;
+    }
+
+    public void settTime(Date tTime) {
+        this.tTime = tTime;
+    }
+
+    public Integer gettValue() {
+        return tValue;
+    }
+
+    public void settValue(Integer tValue) {
+        this.tValue = tValue;
+    }
+
+    public String gettLevel() {
+        return tLevel;
+    }
+
+    public void settLevel(String tLevel) {
+        this.tLevel = tLevel == null ? null : tLevel.trim();
+    }
+}

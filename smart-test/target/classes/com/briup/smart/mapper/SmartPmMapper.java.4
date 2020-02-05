@@ -1,0 +1,16 @@
+package com.briup.smart.mapper;
+
+import com.briup.smart.bean.SmartPm;
+import java.util.List;
+
+public interface SmartPmMapper {
+    int deleteByPrimaryKey(Integer pId);
+
+    int insert(SmartPm record);
+
+    SmartPm selectByPrimaryKey(Integer pId);
+
+    List<SmartPm> selectAll();
+
+    int updateByPrimaryKey(SmartPm record);
+}

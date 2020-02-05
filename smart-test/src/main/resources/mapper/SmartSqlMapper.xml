@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smart.mapper.SmartSqlMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smart.bean.SmartSql">
+    <id column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="s_time" jdbcType="TIMESTAMP" property="sTime" />
+    <result column="s_value" jdbcType="INTEGER" property="sValue" />
+    <result column="s_level" jdbcType="VARCHAR" property="sLevel" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smart_sql
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smart.bean.SmartSql">
+    insert into smart_sql (s_id, s_time, s_value, 
+      s_level)
+    values (#{sId,jdbcType=INTEGER}, #{sTime,jdbcType=TIMESTAMP}, #{sValue,jdbcType=INTEGER}, 
+      #{sLevel,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smart.bean.SmartSql">
+    update smart_sql
+    set s_time = #{sTime,jdbcType=TIMESTAMP},
+      s_value = #{sValue,jdbcType=INTEGER},
+      s_level = #{sLevel,jdbcType=VARCHAR}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select s_id, s_time, s_value, s_level
+    from smart_sql
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select s_id, s_time, s_value, s_level
+    from smart_sql
+  </select>
+  <select id="getRealtimeMessage" resultMap="BaseResultMap">
+    select * from smart_sql order by s_id desc limit 4 ;
+  </select>
+   <select id="getHistoryMessage" resultMap="BaseResultMap">
+      select * from smart_sql where s_time>=date_add(now(),interval -3 day);
+  </select>
+   <select id="selectlastsql" resultMap="BaseResultMap">
+  	select * from smart_sql
+  	ORDER BY id DESC
+  	limit 1;
+  </select>
+  <select id="selectlast2sql" resultMap="BaseResultMap">
+  	select * from smart_sql
+  	ORDER BY id DESC
+  	limit 1,1;
+  </select>
+</mapper>

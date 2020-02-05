@@ -1,0 +1,16 @@
+package com.briup.smart.mapper;
+
+import com.briup.smart.bean.SmartResource;
+import java.util.List;
+
+public interface SmartResourceMapper {
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(SmartResource record);
+
+    SmartResource selectByPrimaryKey(Integer id);
+
+    List<SmartResource> selectAll();
+
+    int updateByPrimaryKey(SmartResource record);
+}

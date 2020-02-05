@@ -1,0 +1,16 @@
+package com.briup.smart.mapper;
+
+import com.briup.smart.bean.SmartSql;
+import java.util.List;
+
+public interface SmartSqlMapper {
+    int deleteByPrimaryKey(Integer sId);
+
+    int insert(SmartSql record);
+
+    SmartSql selectByPrimaryKey(Integer sId);
+
+    List<SmartSql> selectAll();
+
+    int updateByPrimaryKey(SmartSql record);
+}

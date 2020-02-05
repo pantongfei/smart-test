@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smart.mapper.SmartFormaldehydeMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smart.bean.SmartFormaldehyde">
+    <id column="f_id" jdbcType="INTEGER" property="fId" />
+    <result column="f_time" jdbcType="TIMESTAMP" property="fTime" />
+    <result column="f_value" jdbcType="INTEGER" property="fValue" />
+    <result column="f_level" jdbcType="VARCHAR" property="fLevel" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smart_formaldehyde
+    where f_id = #{fId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smart.bean.SmartFormaldehyde">
+    insert into smart_formaldehyde (f_id, f_time, f_value, 
+      f_level)
+    values (#{fId,jdbcType=INTEGER}, #{fTime,jdbcType=TIMESTAMP}, #{fValue,jdbcType=INTEGER}, 
+      #{fLevel,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smart.bean.SmartFormaldehyde">
+    update smart_formaldehyde
+    set f_time = #{fTime,jdbcType=TIMESTAMP},
+      f_value = #{fValue,jdbcType=INTEGER},
+      f_level = #{fLevel,jdbcType=VARCHAR}
+    where f_id = #{fId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select f_id, f_time, f_value, f_level
+    from smart_formaldehyde
+    where f_id = #{fId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select f_id, f_time, f_value, f_level
+    from smart_formaldehyde
+  </select>
+  <select id="getRealtimeMessage" resultMap="BaseResultMap">
+    select * from smart_formaldehyde order by f_id desc limit 4 ;
+  </select>
+   <select id="selectlastformaldehyde" resultMap="BaseResultMap">
+  	select * from smart_formaldehyde
+  	ORDER BY id DESC
+  	limit 1;
+  </select>
+  <select id="selectlast2" resultMap="BaseResultMap">
+  	select * from smart_formaldehyde
+  	ORDER BY id DESC
+  	limit 1,1;
+  </select>
+</mapper>

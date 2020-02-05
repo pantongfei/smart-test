@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smart.mapper.SmartCo2Mapper">
+  <resultMap id="BaseResultMap" type="com.briup.smart.bean.SmartCo2">
+    <id column="c_id" jdbcType="INTEGER" property="cId" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+    <result column="c_value" jdbcType="INTEGER" property="cValue" />
+    <result column="c_level" jdbcType="VARCHAR" property="cLevel" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smart_co2
+    where c_id = #{cId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smart.bean.SmartCo2">
+    insert into smart_co2 (c_id, c_time, c_value, 
+      c_level)
+    values (#{cId,jdbcType=INTEGER}, #{cTime,jdbcType=TIMESTAMP}, #{cValue,jdbcType=INTEGER}, 
+      #{cLevel,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smart.bean.SmartCo2">
+    update smart_co2
+    set c_time = #{cTime,jdbcType=TIMESTAMP},
+      c_value = #{cValue,jdbcType=INTEGER},
+      c_level = #{cLevel,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select c_id, c_time, c_value, c_level
+    from smart_co2
+    where c_id = #{cId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select c_id, c_time, c_value, c_level
+    from smart_co2
+  </select>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smart.mapper.SmartTemperatorMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smart.bean.SmartTemperator">
+    <id column="t_id" jdbcType="INTEGER" property="tId" />
+    <result column="t_time" jdbcType="TIMESTAMP" property="tTime" />
+    <result column="t_value" jdbcType="INTEGER" property="tValue" />
+    <result column="t_level" jdbcType="VARCHAR" property="tLevel" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smart_temperator
+    where t_id = #{tId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smart.bean.SmartTemperator">
+    insert into smart_temperator (t_id, t_time, t_value, 
+      t_level)
+    values (#{tId,jdbcType=INTEGER}, #{tTime,jdbcType=TIMESTAMP}, #{tValue,jdbcType=INTEGER}, 
+      #{tLevel,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smart.bean.SmartTemperator">
+    update smart_temperator
+    set t_time = #{tTime,jdbcType=TIMESTAMP},
+      t_value = #{tValue,jdbcType=INTEGER},
+      t_level = #{tLevel,jdbcType=VARCHAR}
+    where t_id = #{tId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select t_id, t_time, t_value, t_level
+    from smart_temperator
+    where t_id = #{tId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select t_id, t_time, t_value, t_level
+    from smart_temperator
+  </select>
+</mapper>

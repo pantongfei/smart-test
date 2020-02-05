@@ -1,0 +1,45 @@
+package com.briup.smart.bean;
+
+import java.util.Date;
+
+public class SmartHumidity {
+    private Integer hId;
+
+    private Date hTime;
+
+    private Integer hValue;
+
+    private String hLevel;
+
+    public Integer gethId() {
+        return hId;
+    }
+
+    public void sethId(Integer hId) {
+        this.hId = hId;
+    }
+
+    public Date gethTime() {
+        return hTime;
+    }
+
+    public void sethTime(Date hTime) {
+        this.hTime = hTime;
+    }
+
+    public Integer gethValue() {
+        return hValue;
+    }
+
+    public void sethValue(Integer hValue) {
+        this.hValue = hValue;
+    }
+
+    public String gethLevel() {
+        return hLevel;
+    }
+
+    public void sethLevel(String hLevel) {
+        this.hLevel = hLevel == null ? null : hLevel.trim();
+    }
+}
